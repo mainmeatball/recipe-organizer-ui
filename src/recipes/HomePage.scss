@@ -1,0 +1,29 @@
+.home-page {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.nobull {
+  list-style-type: none;
+}
+
+.link {
+  text-decoration: 'none';
+}
+
+a, a:link, a:-webkit-any-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:visited {
+  text-decoration: none;
+  color: inherit;
+}

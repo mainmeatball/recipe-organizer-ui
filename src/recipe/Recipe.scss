@@ -1,0 +1,31 @@
+.recipe {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.buttons {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-button {
+  font-size : 20px;
+  width: 10%;
+}
+
+input, textarea, select {
+  background-color : #cfcfd9;
+}
+
+textarea {
+  width: 80%;
+  height: 80px;
+}
