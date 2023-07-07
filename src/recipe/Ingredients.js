@@ -2,7 +2,7 @@ import RecipeSelect from '../util/RecipeSelect';
 import './Ingredients.scss';
 
 export function Ingredients(props) {
-  let lastIndex = Math.max(...props.ingredients.map(it => it.index)) + 1
+  let lastIndex = props.ingredients.length > 0 ? Math.max(...props.ingredients.map(it => it.index)) + 1 : 1
   const editMode = props.editMode
   const setIngredients = props.setIngredients
   const ingredients = props.ingredients

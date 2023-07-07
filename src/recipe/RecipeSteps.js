@@ -1,7 +1,7 @@
 import './RecipeSteps.scss';
 
 export function RecipeSteps(props) {
-  let maxOrder = Math.max(...props.recipeSteps.map(it => it.order)) + 1
+  let maxOrder = props.recipeSteps.length > 0 ? Math.max(...props.recipeSteps.map(it => it.order)) + 1 : 1
 
   const createRecipeStep = () => {
     const newRecipeStep = emptyRecipeStep(maxOrder++)

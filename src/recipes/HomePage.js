@@ -9,7 +9,9 @@ export default function HomePage() {
     fetch('http://localhost:8080/recipes')
         .then(response => response.json())
         .then(recipes => {
-          const sortedRecipes = recipes.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+          const sortedRecipes = recipes
+            .sort((a, b) => parseInt(a.id) - parseInt(b.id))
+            .map((it, i) => ({...it, index: i}))
           setRecipes(sortedRecipes)
         })
   }, [])
@@ -17,7 +19,9 @@ export default function HomePage() {
   return (
     <div className="home-page">
       <h1>РЕЦЕПТЫ</h1>
-      <Recipes recipes={recipes}/>
+      <Recipes 
+        recipes={recipes} 
+        setRecipes={setRecipes}/>
     </div>
   );
 }
