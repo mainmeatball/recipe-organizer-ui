@@ -4,6 +4,7 @@ import './Recipe.scss';
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import RecipeSelect from '../util/RecipeSelect';
+import { RecipeType } from '../enums/RecipeType';
 
 export default function Recipe() {
   let [searchParams] = useSearchParams()
@@ -168,11 +169,4 @@ function RecipeViewMode({ recipe, ingredients, recipeSteps }) {
       </div>
     </ul>
   )
-}
-
-const RecipeType = {
-  SOUP: "Суп",
-  SALAD: "Салат",
-  MAIN: "Горячее блюдо",
-  BEVERAGE: "Напиток",
 }

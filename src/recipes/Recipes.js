@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { RecipeType } from '../enums/RecipeType';
 import './Recipes.scss';
 
 export function Recipes({ recipes, setRecipes }) {
@@ -72,7 +73,7 @@ function RecipeGlobalView(props) {
               <li>Id: {recipe.id}</li>
               <li>Name: {recipe.name}</li>
               <li>Descripton: {recipe.description}</li>
-              <li>Type: {recipe.recipeType}</li>
+              <li>Type: {RecipeType[recipe.recipeType]}</li>
             </div>
           </ul>
         </div>
