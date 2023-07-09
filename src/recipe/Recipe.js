@@ -5,11 +5,13 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import RecipeSelect from '../util/RecipeSelect';
 import { RecipeType } from '../enums/RecipeType';
+import Image from '../components/Image';
 
 export default function Recipe() {
   let [searchParams] = useSearchParams()
 
   const [recipe, setRecipe] = useState(null)
+  const [recipePreview, setRecipePreview] = useState(null)
   const [ingredients, setIngredients] = useState([])
   const [recipeSteps, setRecipeSteps] = useState([])
   const [editMode, setEditMode] = useState(false)
@@ -53,6 +55,8 @@ export default function Recipe() {
       <RecipeDetails 
         recipe={recipe}
         setRecipe={setRecipe}
+        recipePreview={recipePreview}
+        setRecipePreview={setRecipePreview}
         editMode={editMode}
         toggleEditMode={toggleEditMode}
         ingredients={ingredients}
@@ -70,18 +74,37 @@ function RecipeDetails(props) {
     : <RecipeViewMode 
         recipe={props.recipe} 
         ingredients={props.ingredients} 
-        recipeSteps={props.recipeSteps} 
+        recipeSteps={props.recipeSteps}
+        getImage={props.getImage}
       />
 }
 
 function RecipeEditMode(props) {
   const recipe = props.recipe
 
+  const handleFileChange = e => {
+    if (e.target.files) {
+      props.setRecipePreview(e.target.files[0]);
+    }
+  };
+
   const useSendPostToBackend = e => {
     e.preventDefault()
 
-    const recipeToSend = {...recipe, ingredients: props.ingredients, steps: props.recipeSteps}
+    const recipeToSend = {
+      ...recipe,
+      ingredients: props.ingredients, 
+      steps: props.recipeSteps
+    }
     props.setRecipe(recipeToSend)
+
+    let formData = new FormData()
+    formData.append('file', props.recipePreview)
+
+    // fetch('http://localhost:8080/uploadImages', {
+      // method: 'POST',
+      // body: formData
+    // }).then(response => console.log(response.json()));
 
     fetch('http://localhost:8080/recipes', {
       method: 'POST',
@@ -112,6 +135,7 @@ function RecipeEditMode(props) {
             />
           </li>
         </div>
+        <input type="file" onChange={handleFileChange}/>
         <div className='ingredient-list-frame'>
           <div>Ингредиенты</div>
           <div className='ingredient-list'>
@@ -151,6 +175,7 @@ function RecipeViewMode({ recipe, ingredients, recipeSteps }) {
         <li>Описание: {recipe.description}</li>
         <li>Type: {RecipeType[recipe.recipeType]}</li>
       </div>
+      <Image imageId={recipe.recipePreviewId} />
       <div className='ingredient-list-frame'>
         <div>Ингредиенты</div>
         <div className='ingredient-list'>
