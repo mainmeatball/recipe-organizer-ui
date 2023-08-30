@@ -7,14 +7,15 @@ export function Recipes({ recipes, setRecipes }) {
 
   const addNewRecipe = () => {
     const newRecipe = emptyRecipe(maxIndex++)
-    fetch('http://localhost:8080/recipes', {
+    console.log(JSON.stringify(newRecipe))
+    fetch('http://localhost:9090/recipes', {
       method: 'POST',
       body: JSON.stringify(newRecipe),
       headers: {
         'Content-Type': 'application/json'
       }
     })
-    .then(() => fetch('http://localhost:8080/recipes'))
+    .then(() => fetch('http://localhost:9090/recipes'))
     .then(response => response.json())
     .then(recipes => {
       const sortedRecipes = recipes
@@ -24,12 +25,12 @@ export function Recipes({ recipes, setRecipes }) {
     })
   }
   const removeRecipe = id => {
-    fetch('http://localhost:8080/recipe?' + new URLSearchParams({id}), {
+    fetch('http://localhost:9090/recipe?' + new URLSearchParams({id}), {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
       }
-    }).then(() => fetch('http://localhost:8080/recipes'))
+    }).then(() => fetch('http://localhost:9090/recipes'))
     .then(response => response.json())
     .then(recipes => {
       const sortedRecipes = recipes

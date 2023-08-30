@@ -1,4 +1,6 @@
 import './RecipeSteps.scss';
+import RecipeStep from './RecipeStep.js';
+
 
 export function RecipeSteps(props) {
   let maxOrder = props.recipeSteps.length > 0 ? Math.max(...props.recipeSteps.map(it => it.order)) + 1 : 1
@@ -68,28 +70,6 @@ function RecipeStepsViewMode({ recipeSteps }) {
     <ul className="nobull">
       {recipeSteps}
     </ul>
-  )
-}
-
-function RecipeStep(props) {
-  return props.editMode
-    ? <RecipeStepEditMode {...props} />
-    : <RecipeStepViewMode recipeStep={props.recipeStep} />
-}
-
-function RecipeStepEditMode(props) {
-  const recipeStep = props.recipeStep
-  return (
-    <li>
-      {recipeStep.order}. <textarea name="text" defaultValue={recipeStep.text} onChange={props.updateFieldChanged(recipeStep.order)} />
-      <button type="button" onClick={() => props.removeRecipeStep(recipeStep.order)}>x</button>
-    </li>
-  )
-}
-
-function RecipeStepViewMode({ recipeStep }) {
-  return (
-    <li>{recipeStep.order}. {recipeStep.text}</li>
   )
 }
 

@@ -6,7 +6,7 @@ export default function HomePage() {
   const [recipes, setRecipes] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:8080/recipes')
+    fetch('http://localhost:9090/recipes')
         .then(response => response.json())
         .then(recipes => {
           const sortedRecipes = recipes

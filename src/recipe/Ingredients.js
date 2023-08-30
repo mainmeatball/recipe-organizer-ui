@@ -17,13 +17,11 @@ export function Ingredients(props) {
     setIngredients(newIngredients)
   }
 
-  // const updateFieldChanged = index => (value, action) => {
   const updateFieldChanged = index => e => {
     const newIngredientList = ingredients.map(ingredient => {
       if (ingredient.index !== index) {
         return ingredient
       }
-      // const newIngredient = {...ingredient, [action.name]: value}
       const newIngredient = {...ingredient, [e.target.name]: e.target.value}
       return newIngredient
     })

@@ -24,7 +24,7 @@ export default function Recipe() {
 
   useEffect(() => {
     const id = searchParams.get("id")
-    fetch('http://localhost:8080/recipe?' + new URLSearchParams({id}))
+    fetch('http://localhost:9090/recipe?' + new URLSearchParams({id}))
         .then(response => response.json())
         .then(recipe => initFields(recipe))
   }, [searchParams])
@@ -98,21 +98,46 @@ function RecipeEditMode(props) {
     }
     props.setRecipe(recipeToSend)
 
-    let formData = new FormData()
-    formData.append('file', props.recipePreview)
+    if (props.recipePreview) {
+      let formData = new FormData()
+      formData.append('file', props.recipePreview)
 
-    // fetch('http://localhost:8080/uploadImages', {
-      // method: 'POST',
-      // body: formData
-    // }).then(response => console.log(response.json()));
+      console.log("is not null")
+      console.log("without ===")
+      console.log(Boolean(props.recipePreview))
+      console.log("!== undefined")
+      console.log(Boolean(props.recipePreview !== undefined))
+      console.log("!== null")
+      console.log(Boolean(props.recipePreview !== null))
+      console.log("!== null || !== undefined")
+      console.log(Boolean(props.recipePreview !== null || props.recipePreview !== undefined))
+      console.log(props.recipePreview)
 
-    fetch('http://localhost:8080/recipes', {
-      method: 'POST',
-      body: JSON.stringify(recipeToSend),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(_ => props.toggleEditMode())
+      fetch('http://localhost:9090/uploadImages', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(imageId => fetch('http://localhost:9090/recipes', {
+        method: 'POST',
+        body: JSON.stringify({...recipeToSend, recipePreviewId: imageId}),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })).then(_ => props.toggleEditMode())
+    } else {
+      console.log("is null")
+      console.log(Boolean(props.recipePreview))
+      console.log(props.recipePreview)
+
+      fetch('http://localhost:9090/recipes', {
+        method: 'POST',
+        body: JSON.stringify({...recipeToSend, recipePreviewId: null}),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(_ => props.toggleEditMode())
+    }
   }
 
   const updateRecipe = e => {
