@@ -1,5 +1,24 @@
+.recipe-frame {
+  position: relative;
+  width: 50%;
+  margin: auto;
+}
+
+button.header-button {
+  background: aqua;
+  cursor: pointer;
+  &:hover {
+    background: wheat;
+  }
+}
+
+button.remove-recipe {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
 .recipe-global-view {
   border: 1px solid white;
   padding: 30px;
-  margin: 30px;
 }

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { RecipeType } from '../enums/RecipeType';
 import './Recipes.scss';
+import ImagePreview from '../components/ImagePreview';
 
 export function Recipes({ recipes, setRecipes }) {
   let maxIndex = recipes.length > 0 ? Math.max(...recipes.map(it => it.index)) + 1 : 1
@@ -63,10 +64,7 @@ export function Recipes({ recipes, setRecipes }) {
 function RecipeGlobalView(props) {
   const recipe = props.recipe
   return (
-    <div>
-      <button className='header-button' onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) props.removeRecipe(recipe.id)}}>
-                -
-      </button>
+    <div className='recipe-frame'>
       <Link to={recipeLink(recipe.id)} className='link'>
         <div className='recipe-global-view'>
           <ul key={recipe.id} className='nobull'>
@@ -75,10 +73,16 @@ function RecipeGlobalView(props) {
               <li>Name: {recipe.name}</li>
               <li>Descripton: {recipe.description}</li>
               <li>Type: {RecipeType[recipe.recipeType]}</li>
+              <li>
+                <ImagePreview imageId={recipe.recipePreviewId} />
+              </li>
             </div>
           </ul>
         </div>
       </Link>
+      <button className='header-button remove-recipe' onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) props.removeRecipe(recipe.id)}}>
+                -
+      </button>
     </div>
   )
 }

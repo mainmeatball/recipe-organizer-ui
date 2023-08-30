@@ -102,17 +102,6 @@ function RecipeEditMode(props) {
       let formData = new FormData()
       formData.append('file', props.recipePreview)
 
-      console.log("is not null")
-      console.log("without ===")
-      console.log(Boolean(props.recipePreview))
-      console.log("!== undefined")
-      console.log(Boolean(props.recipePreview !== undefined))
-      console.log("!== null")
-      console.log(Boolean(props.recipePreview !== null))
-      console.log("!== null || !== undefined")
-      console.log(Boolean(props.recipePreview !== null || props.recipePreview !== undefined))
-      console.log(props.recipePreview)
-
       fetch('http://localhost:9090/uploadImages', {
         method: 'POST',
         body: formData
@@ -126,10 +115,6 @@ function RecipeEditMode(props) {
         }
       })).then(_ => props.toggleEditMode())
     } else {
-      console.log("is null")
-      console.log(Boolean(props.recipePreview))
-      console.log(props.recipePreview)
-
       fetch('http://localhost:9090/recipes', {
         method: 'POST',
         body: JSON.stringify({...recipeToSend, recipePreviewId: null}),
